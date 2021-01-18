@@ -5,17 +5,24 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.webstoreapp.model.repository.ProductRepository;
+import com.webstoreapp.service.ProductService;
 
 @Controller
+@RequestMapping("market")
 public class ProductController {
 
 	@Autowired
-	private ProductRepository productRepository;
+	private ProductService productService;
 
 	@RequestMapping("/products")
-	public String list(Model model) {
-		model.addAttribute("products", productRepository.getAllProducts());
+	public String listProducts(Model model) {
+		model.addAttribute("products", productService.retrieveAllProducts());
 		return "products";
+	}
+
+	@RequestMapping("/update/stock")
+	public String updateStock(Model model) {
+		productService.updateAllStock();
+		return "redirect:/webstore/market/products";
 	}
 }
