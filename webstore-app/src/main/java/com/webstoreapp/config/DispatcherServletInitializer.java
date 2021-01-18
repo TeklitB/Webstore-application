@@ -13,7 +13,7 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
 	// we are telling DispatcherServlet about our controller classes and view files
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
-		return new Class[] { AppConfig.class };
+		return new Class[] { WebApplicationContextConfig.class };
 	}
 
 	@Override
