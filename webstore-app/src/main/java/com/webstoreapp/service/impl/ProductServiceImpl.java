@@ -20,12 +20,17 @@ public class ProductServiceImpl implements ProductService {
 		return productRepository.getAllProducts();
 	}
 
-	public List<Product> getProductsByCategory(String category) {
+	public List<Product> retrieveProductsByCategory(String category) {
 		return productRepository.getProductsByCategory(category);
 	}
 
-	public List<Product> getProductsByFilter(Map<String, List<String>> filterParams) {
+	public List<Product> retrieveProductsByFilter(Map<String, List<String>> filterParams) {
 		return productRepository.getProductsByFilter(filterParams);
+	}
+
+	@Override
+	public Product retrieveProductById(String productID) {
+		return productRepository.getProductById(productID);
 	}
 
 	@Override
