@@ -3,6 +3,8 @@ package com.webstoreapp.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class Product implements Serializable {
 
 	private static final long serialVersionUID = 3678107792576131001L;
@@ -16,6 +18,8 @@ public class Product implements Serializable {
 	private long unitsInOrder;
 	private boolean discontinued;
 	private String condition;
+	private MultipartFile productImage;
+	private MultipartFile productManual;
 
 	public Product() {
 		super();
@@ -105,6 +109,22 @@ public class Product implements Serializable {
 
 	public void setCondition(String condition) {
 		this.condition = condition;
+	}
+
+	public MultipartFile getProductImage() {
+		return productImage;
+	}
+
+	public void setProductImage(MultipartFile productImage) {
+		this.productImage = productImage;
+	}
+	
+	public MultipartFile getProductManual() {
+		return productManual;
+	}
+
+	public void setProductManual(MultipartFile productManual) {
+		this.productManual = productManual;
 	}
 
 	@Override

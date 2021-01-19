@@ -21,14 +21,17 @@ public class ProductServiceImpl implements ProductService {
 		productRepository.addProduct(product);
 	}
 
+	@Override
 	public List<Product> retrieveAllProducts() {
 		return productRepository.getAllProducts();
 	}
 
+	@Override
 	public List<Product> retrieveProductsByCategory(String category) {
 		return productRepository.getProductsByCategory(category);
 	}
 
+	@Override
 	public List<Product> retrieveProductsByFilter(Map<String, List<String>> filterParams) {
 		return productRepository.getProductsByFilter(filterParams);
 	}
