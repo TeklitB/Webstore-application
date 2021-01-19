@@ -7,6 +7,8 @@ import com.webstoreapp.model.Product;
 
 public interface ProductService {
 
+	void addProduct(Product product);
+
 	List<Product> retrieveAllProducts();
 
 	List<Product> retrieveProductsByCategory(String category);

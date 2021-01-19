@@ -3,8 +3,11 @@ package com.webstoreapp.model.repository;
 import java.util.List;
 
 import com.webstoreapp.model.Customer;
+import com.webstoreapp.model.Product;
 
 public interface CustomerRepository {
 
-	List <Customer> getAllCustomers();
+	void addCustomer(Customer customer);
+
+	List<Customer> getAllCustomers();
 }

@@ -20,4 +20,10 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerRepository.getAllCustomers();
 	}
 
+	@Override
+	public void addCustomer(Customer customer) {
+
+		customerRepository.addCustomer(customer);
+	}
+
 }

@@ -6,3 +6,8 @@ INSERT INTO PRODUCTS VALUES ('P1235', 'Dell Inspiron',
 INSERT INTO PRODUCTS VALUES ('P1236', 'Nexus 7', 'Google
 Nexus 7 is the lightest 7 inch tablet With a quad-core Qualcomm
 SnapdragonTM S4 Pro processor', 300,'Google','Tablet','New',1000,0,false);
+
+INSERT INTO CUSTOMERS VALUES ('C1231', 'Adam', 'Wall Street', 3);
+INSERT INTO CUSTOMERS VALUES ('C1232', 'Smith', 'New York', 5);
+INSERT INTO CUSTOMERS VALUES ('C1233', 'Jams', 'London', 13);
+INSERT INTO CUSTOMERS VALUES ('C1234', 'Anderson', 'Stockholm', 6);
