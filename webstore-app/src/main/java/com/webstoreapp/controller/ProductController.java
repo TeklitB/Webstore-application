@@ -112,6 +112,11 @@ public class ProductController {
 		return "redirect:/webstore/market/products";
 	}
 
+	@RequestMapping("/products/invalidPromoCode")
+	public String invalidPromoCode() {
+		return "invalidPromoCode";
+	}
+
 	@ExceptionHandler(ProductNotFoundException.class)
 	public ModelAndView handleError(HttpServletRequest req, ProductNotFoundException exception) {
 		ModelAndView mav = new ModelAndView();
@@ -125,6 +130,6 @@ public class ProductController {
 	@InitBinder
 	public void initialiseBinder(WebDataBinder binder) {
 		binder.setAllowedFields("productId", "name", "unitPrice", "description", "manufacturer", "category",
-				"unitsInStock", "condition", "productImage", "productManual");
+				"unitsInStock", "condition", "productImage", "productManual", "language");
 	}
 }

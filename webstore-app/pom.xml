@@ -109,6 +109,21 @@
 		    <version>2.3.0</version>
 		</dependency>
 		
+		<!-- Spring Security configuration dependency -->
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-config</artifactId>
+		    <version>5.1.0.RELEASE</version>
+		</dependency>
+		
+		<!-- Spring Security web dependency -->
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-web</artifactId>
+		    <version>5.1.0.RELEASE</version>
+		</dependency>
+		
+		
      </dependencies>
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>
