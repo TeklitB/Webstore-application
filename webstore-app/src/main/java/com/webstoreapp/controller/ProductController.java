@@ -4,12 +4,15 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.MatrixVariable;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,7 +22,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.webstoreapp.exception.NoProductsFoundUnderCategoryException;
+import com.webstoreapp.exception.ProductNotFoundException;
 import com.webstoreapp.model.Product;
 import com.webstoreapp.service.ProductService;
 
@@ -56,7 +62,7 @@ public class ProductController {
 				throw new RuntimeException("Product Image saving failed", e);
 			}
 		}
-		
+
 		if (productManual != null && !productManual.isEmpty()) {
 			try {
 				productManual
@@ -65,7 +71,7 @@ public class ProductController {
 				throw new RuntimeException("Product Manual saving failed", e);
 			}
 		}
-		
+
 		productService.addProduct(newProduct);
 		return "redirect:/webstore/market/products";
 	}
@@ -78,7 +84,12 @@ public class ProductController {
 
 	@RequestMapping("/products/{category}")
 	public String getProductsByCategory(Model model, @PathVariable("category") String productCategory) {
-		model.addAttribute("products", productService.retrieveProductsByCategory(productCategory));
+
+		List<Product> products = productService.retrieveProductsByCategory(productCategory);
+		if (products == null || products.isEmpty()) {
+			throw new NoProductsFoundUnderCategoryException();
+		}
+		model.addAttribute("products", products);
 		return "products";
 	}
 
@@ -99,6 +110,16 @@ public class ProductController {
 	public String updateStock(Model model) {
 		productService.updateAllStock();
 		return "redirect:/webstore/market/products";
+	}
+
+	@ExceptionHandler(ProductNotFoundException.class)
+	public ModelAndView handleError(HttpServletRequest req, ProductNotFoundException exception) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("invalidProductId", exception.getProductId());
+		mav.addObject("exception", exception);
+		mav.addObject("url", req.getRequestURL() + "?" + req.getQueryString());
+		mav.setViewName("productNotFound");
+		return mav;
 	}
 
 	@InitBinder
