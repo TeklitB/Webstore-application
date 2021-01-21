@@ -1,7 +1,9 @@
 package com.webstoreapp.config;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Locale;
+import java.util.Set;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -9,6 +11,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
+import org.springframework.validation.Validator;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.accept.ContentNegotiationManager;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -31,6 +35,8 @@ import org.springframework.web.util.UrlPathHelper;
 
 import com.webstoreapp.interceptor.PromoCodeInterceptor;
 import com.webstoreapp.model.Product;
+import com.webstoreapp.validator.ProductValidator;
+import com.webstoreapp.validator.UnitsInStockValidator;
 
 @Configuration
 @EnableWebMvc
@@ -119,6 +125,22 @@ public class WebApplicationContextConfig implements WebMvcConfigurer {
 		return promoCodeInterceptor;
 	}
 
+	@Bean(name = "validator")
+	public LocalValidatorFactoryBean validator() {
+		LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
+		bean.setValidationMessageSource(messageSource());
+		return bean;
+	}
+
+	@Bean
+	public ProductValidator productValidator() {
+		Set<Validator> springValidators = new HashSet<>();
+		springValidators.add(new UnitsInStockValidator());
+		ProductValidator productValidator = new ProductValidator();
+		productValidator.setSpringValidators(springValidators);
+		return productValidator;
+	}
+
 	@Override
 	public void configurePathMatch(PathMatchConfigurer configurer) {
 		UrlPathHelper urlPathHelper = new UrlPathHelper();
@@ -142,6 +164,11 @@ public class WebApplicationContextConfig implements WebMvcConfigurer {
 		localeChangeInterceptor.setParamName("language");
 		registry.addInterceptor(localeChangeInterceptor);
 		registry.addInterceptor(promoCodeInterceptor()).addPathPatterns("/**/market/products/specialOffer");
+	}
+
+	@Override
+	public Validator getValidator() {
+		return validator();
 	}
 
 }

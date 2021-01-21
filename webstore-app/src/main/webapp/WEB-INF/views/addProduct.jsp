@@ -27,6 +27,7 @@ href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 	</section>
 	<section class="container">
 		<form:form method="POST" modelAttribute="newProduct" class="form-horizontal" enctype="multipart/form-data">
+			<form:errors path="*" cssClass="alert alert-danger" element="div"/>
 			<fieldset>
 				<legend>Add new product</legend>
 				<div class="form-group">
@@ -35,6 +36,7 @@ href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 					<div class="col-lg-10">
 						<form:input id="productId" path="productId"
 						type="text" class="form:input-large"/>
+						<form:errors path="productId" cssClass="text-danger"/>
 					</div>
 				</div>
 				<div class="form-group">
@@ -43,6 +45,7 @@ href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 					<div class="col-lg-10">
 						<form:input id="name" path="name"
 						type="text" class="form:input-large"/>
+						<form:errors path="name" cssClass="text-danger"/>
 					</div>
 				</div>
 				<div class="form-group">
@@ -51,6 +54,7 @@ href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 					<div class="col-lg-10">
 						<form:input id="unitPrice" path="unitPrice"
 						type="text" class="form:input-large"/>
+						<form:errors path="unitPrice" cssClass="text-danger"/>
 					</div>
 				</div>
 				<div class="form-group">
